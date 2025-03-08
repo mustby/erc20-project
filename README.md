@@ -1,5 +1,7 @@
 ## GTACoin ERC20 Contract ##
 
+This is the updated version of the README
+
 1. Create and mint the GTACoin to the msg.sender
 2. Allow ability to buy and sell
 3. Allow ability to stake coins
