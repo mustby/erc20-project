@@ -23,7 +23,7 @@ contract GTAVaultTest is Test {
 
         // Give alice and bob some tokens to work with
         gtaCoin.transfer(alice, 10000 * 10 ** 18); // alice receives 9800 (2% fee)
-        gtaCoin.transfer(bob, 10000 * 10 ** 18);   // bob receives 9800 (2% fee)
+        gtaCoin.transfer(bob, 10000 * 10 ** 18); // bob receives 9800 (2% fee)
     }
 
     // ---- Staking ----

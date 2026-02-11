@@ -55,14 +55,8 @@ contract GTAVault is Ownable {
     // Claim Rewards (once per day per user)
     // Reward = user's share of accumulated fees, proportional to their stake
     function claimRewards() external {
-        require(
-            block.timestamp >= lastPayoutTime[msg.sender] + 1 days,
-            "Can only claim rewards once per day"
-        );
-        require(
-            stakedAmounts[msg.sender] > 0,
-            "No staked amount to claim rewards for"
-        );
+        require(block.timestamp >= lastPayoutTime[msg.sender] + 1 days, "Can only claim rewards once per day");
+        require(stakedAmounts[msg.sender] > 0, "No staked amount to claim rewards for");
 
         uint256 fees = availableFees();
         require(fees > 0, "No fees available to distribute");

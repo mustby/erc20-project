@@ -21,7 +21,7 @@ contract GTACoin is ERC20, Ownable {
 
     // Buy/sell: price per whole GTA token in wei, with a sell discount
     uint256 public tokenPriceInWei = 0.001 ether; // 1 GTA = 0.001 ETH
-    uint256 public sellDiscountPercentage = 10;    // sell at 90% of buy price
+    uint256 public sellDiscountPercentage = 10; // sell at 90% of buy price
 
     // In-game item shop: itemId => price in GTA tokens
     mapping(uint256 => uint256) public itemPrices;
@@ -73,7 +73,7 @@ contract GTACoin is ERC20, Ownable {
         uint256 ethToReturn = grossEth - (grossEth * sellDiscountPercentage) / 100;
         require(address(this).balance >= ethToReturn, "Insufficient ETH in contract");
         _burn(msg.sender, amount);
-        (bool sent, ) = payable(msg.sender).call{value: ethToReturn}("");
+        (bool sent,) = payable(msg.sender).call{value: ethToReturn}("");
         require(sent, "ETH transfer failed");
         emit TokensSold(msg.sender, amount, ethToReturn);
     }
@@ -93,7 +93,7 @@ contract GTACoin is ERC20, Ownable {
     // Owner withdraws accumulated ETH from buy/sell spread
     function withdrawEth(uint256 amount) external onlyOwner {
         require(address(this).balance >= amount, "Insufficient ETH balance");
-        (bool sent, ) = payable(owner()).call{value: amount}("");
+        (bool sent,) = payable(owner()).call{value: amount}("");
         require(sent, "ETH transfer failed");
     }
 
@@ -101,11 +101,7 @@ contract GTACoin is ERC20, Ownable {
     // Applies a 2% fee on regular transfers, sending the fee to the vault.
     // Skips fee on mints (from == address(0)), burns (to == address(0)),
     // and transfers to/from the vault itself (avoids infinite recursion).
-    function _update(
-        address from,
-        address to,
-        uint256 value
-    ) internal override {
+    function _update(address from, address to, uint256 value) internal override {
         bool isMintOrBurn = (from == address(0) || to == address(0));
         bool involvesVault = (from == vault || to == vault);
 
